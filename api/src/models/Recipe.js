@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
     },
     image: {
       type: DataTypes.STRING,
-      defaultValue: ""
+      defaultValue: "https://cutt.ly/VZcVXeE"
     },
     created: {
       type: DataTypes.BOOLEAN,
