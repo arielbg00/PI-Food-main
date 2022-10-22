@@ -28,6 +28,9 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       defaultValue: "https://cutt.ly/VZcVXeE"
     },
+    dishTypes: {
+      type: DataTypes.ARRAY(DataTypes.STRING)
+    },
     created: {
       type: DataTypes.BOOLEAN,
       defaultValue: true

@@ -19,11 +19,11 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
-// const { saveDietsInDb } = require("./src/utils/utils");
+const { saveDietsInDb } = require("./src/utils/utils");
 
 // Syncing all the models at once.
-conn.sync({ force: false }).then(() => {
-  // saveDietsInDb();
+conn.sync({ force: true }).then(() => {
+  saveDietsInDb();
   server.listen(3001, () => {
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   });

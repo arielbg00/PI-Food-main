@@ -30,20 +30,34 @@ router.get("/recipes", async (req, res) => {
 router.get("/recipes/:id", async (req, res) => {
    try {
       const { id } = req.params;
+      if (id.length > 20) {
+         const getByIdDb = await Recipe.findByPk(id, { include: { model: Diet } });
+         if (getByIdDb) return res.json(getByIdDb);
+      }
       const getById = await axios(`https://api.spoonacular.com/recipes/${id}/information?apiKey=bee23743640145c3bcf6664e2c031ec4`);
-      res.json(getById.data);
+      const mapped = {
+         id: getById.data.id,
+         name: getById.data.title,
+         summary: getById.data.summary,
+         healthScore: getById.data.healthScore,
+         steps: getById.data.analyzedInstructions[0]?.steps.map(obj => obj.step),
+         image: getById.data.image,
+         dishTypes: getById.data.dishTypes,
+         diets: getById.data.diets
+      };
+      res.json(mapped);
    } catch (error) {
-      console.log(error);
+      res.status(400).send("A recipe with the id does not exist.");
    }
 });
 
 router.post("/recipes", async (req, res) => {
-   const { name, summary, healthScore, image, diets } = req.body;
+   const { name, summary, healthScore, image, dishTypes, diets } = req.body;
    if (!name || !summary || !healthScore || !image || !diets) {
       res.status(400).json({ msg: "missing data" });
    }
    try {
-      const obj = { name, summary, healthScore, image };
+      const obj = { name, summary, healthScore, dishTypes, image };
       const newRecipe = await Recipe.create(obj);
 
       const dietsDb = await Diet.findAll({ where: { name: diets } });
@@ -59,10 +73,8 @@ router.post("/recipes", async (req, res) => {
 
 router.get("/diets", async (req, res) => {
    try {
-      const diets = [{name: "gluten free"}, {name: "ketogenic"}, {name: "vegetarian"}, {name: "lacto vegetarian"}, {name: "ovo vegetarian"}, {name: "vegan"}, {name: "pescetarian"}, {name: "paleo"}, {name: "primal"}, {name: "low fodmap"}, {name: "whole 30"}];
-      await Diet.bulkCreate(diets);
-
-      res.send("Diets were added to the DataBase");
+      const diets = await Diet.findAll();
+      res.json(diets);
    } catch (error) {
       console.log(error);
    }
