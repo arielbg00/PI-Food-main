@@ -31,19 +31,29 @@ router.get("/recipes/:id", async (req, res) => {
    try {
       const { id } = req.params;
       if (id.length > 20) {
-         const getByIdDb = await Recipe.findByPk(id, { include: { model: Diet } });
-         if (getByIdDb) return res.json(getByIdDb);
+         const getIdDb = await Recipe.findByPk(id, { include: { model: Diet } });
+         const mapped = {
+            id: getIdDb.id,
+            name: getIdDb.name,
+            summary: getIdDb.summary,
+            healthScore: getIdDb.healthScore,
+            steps: getIdDb.steps,
+            image: getIdDb.image,
+            dishTypes: getIdDb.dishTypes,
+            diets: getIdDb.diets.map(obj => obj.name)
+         };
+         if (mapped) return res.json(mapped);
       }
-      const getById = await axios(`https://api.spoonacular.com/recipes/${id}/information?apiKey=bee23743640145c3bcf6664e2c031ec4`);
+      const getIdApi = await axios(`https://api.spoonacular.com/recipes/${id}/information?apiKey=bee23743640145c3bcf6664e2c031ec4`);
       const mapped = {
-         id: getById.data.id,
-         name: getById.data.title,
-         summary: getById.data.summary,
-         healthScore: getById.data.healthScore,
-         steps: getById.data.analyzedInstructions[0]?.steps.map(obj => obj.step),
-         image: getById.data.image,
-         dishTypes: getById.data.dishTypes,
-         diets: getById.data.diets
+         id: getIdApi.data.id,
+         name: getIdApi.data.title,
+         summary: getIdApi.data.summary,
+         healthScore: getIdApi.data.healthScore,
+         steps: getIdApi.data.analyzedInstructions[0]?.steps.map(obj => obj.step),
+         image: getIdApi.data.image,
+         dishTypes: getIdApi.data.dishTypes,
+         diets: getIdApi.data.diets
       };
       res.json(mapped);
    } catch (error) {
@@ -52,12 +62,12 @@ router.get("/recipes/:id", async (req, res) => {
 });
 
 router.post("/recipes", async (req, res) => {
-   const { name, summary, healthScore, image, dishTypes, diets } = req.body;
-   if (!name || !summary || !healthScore || !image || !diets) {
+   const { name, summary, healthScore, steps, image, dishTypes, diets } = req.body;
+   if (!name || !summary || !healthScore || !steps || !image || !dishTypes || !diets) {
       res.status(400).json({ msg: "missing data" });
    }
    try {
-      const obj = { name, summary, healthScore, dishTypes, image };
+      const obj = { name, summary, healthScore, steps, image, dishTypes };
       const newRecipe = await Recipe.create(obj);
 
       const dietsDb = await Diet.findAll({ where: { name: diets } });
