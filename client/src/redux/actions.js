@@ -19,3 +19,34 @@ export const getRecipeId = (id) => {
       });
    };
 };
+
+export const filterRecipes = (payload) => {
+   return {
+      type: "FILTER_RECIPES",
+      payload
+   };
+};
+
+export const filterByDiets = (payload) => {
+   return {
+      type: "FILTER_BY_DIETS",
+      payload
+   };
+};
+
+export const getDiets = () => {
+   return async (dispatch) => {
+      const getDietsDb = await axios.get("http://localhost:3001/diets");
+      dispatch({
+         type: "GET_DIETS",
+         payload: getDietsDb.data
+      });
+   };
+};
+
+export const alphabeticalOrder = (payload) => {
+   return {
+      type: "ALPHABETICAL_ORDER",
+      payload
+   };
+};
