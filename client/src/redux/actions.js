@@ -50,3 +50,24 @@ export const alphabeticalOrder = (payload) => {
       payload
    };
 };
+
+export const getRecipeName = (name) => {
+   return async (dispatch) => {
+      try {
+         const getByName =await axios.get(`http://localhost:3001/recipes/?name=${name}`);
+         dispatch({
+            type: "GET_RECIPE_NAME",
+            payload: getByName.data
+         });
+      } catch (error) {
+         alert(`${name} is not a Recipe`);
+      }
+   };
+};
+
+export const changePage = (payload) => {
+   return {
+      type: "CHANGE_PAGE",
+      payload
+   };
+};

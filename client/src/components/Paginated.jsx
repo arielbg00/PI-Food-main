@@ -14,7 +14,8 @@ export default function Paginated({ stateRecipes, recipesInPage, paginate }) {
             {
                pageNumbers?.map(num => (
                   <li key={num}>
-                     <button onClick={() => paginate(num)}>{num}</button>
+                     {/* <button onClick={() => paginate(num)}>{num}</button> */}
+                     <a onClick={() => paginate(num)}>{num}</a>
                   </li>
                ))
             }

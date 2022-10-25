@@ -2,7 +2,8 @@ const initialState = {
    recipes: [],
    recipeDetails: {},
    copyRecipes: [],
-   diets: []
+   diets: [],
+   initialPage: 1
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -51,6 +52,16 @@ export default function rootReducer(state = initialState, action) {
          return {
             ...state,
             recipes: recipesSorted
+         };
+      case "GET_RECIPE_NAME":
+         return {
+            ...state,
+            recipes: action.payload
+         };
+      case "CHANGE_PAGE":
+         return {
+            ...state,
+            initialPage: action.payload
          };
       default:
          return {...state};
