@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getRecipes, changePage } from "../redux/actions";
+import { Link } from "react-router-dom";
 import AllCards from "./AllCards";
 import Filters from "./Filters";
 import SearchBar from "./SearchBar";
-import Card from "./Card";
+// import Card from "./Card";
 import Paginated from "./Paginated";
 
 export default function Home() {
 
    const stateRecipes = useSelector(state => state.recipes);
+   const stateCopyRecipes = useSelector(state => state.copyRecipes);
    const dispatch = useDispatch();
 
    const initialPage = useSelector((state) => state.initialPage);
@@ -28,38 +30,46 @@ export default function Home() {
 
    const handleBack = () => {
       dispatch(getRecipes());
-      setCurrentPage(initialPage);
+      setCurrentPage(1);
    };
 
    useEffect(() => {
+      // if (!stateRecipes.length) return dispatch(getRecipes());
       dispatch(getRecipes());
       setCurrentPage(initialPage);
-      // if (!stateRecipes.length) { return dispatch(getRecipes()) }
    }, [])
 
    return (
       <div>
          <h4>Hello</h4>
-         <SearchBar />
-         <div>
-            {
-               currentRecipes.length ? 
+         {
+            stateCopyRecipes.length ? 
+               <div>
                   <div>
-                     <Filters setCurrentPage={setCurrentPage} setOrder={setOrder} />
-                     <Paginated 
-                        stateRecipes={stateRecipes.length} 
-                        recipesInPage={recipesInPage} 
-                        paginate={paginate} 
-                     />
-                  </div> : <button type="text" onClick={(e) => handleBack(e)}>Volver</button>
-            }
-         </div>
-         <div>
-            {
-               stateRecipes.id ? <Card {...stateRecipes} /> : false
-            }
-         </div>
-         <AllCards currentRecipes={currentRecipes} />
+                     <Link to="/create">Create Recipe</Link>
+                  </div>
+                  <SearchBar />
+                  <div>
+                     {
+                        currentRecipes.length ? 
+                           <div>
+                              <Filters setCurrentPage={setCurrentPage} setOrder={setOrder} />
+                              <Paginated 
+                                 stateRecipes={stateRecipes.length} 
+                                 recipesInPage={recipesInPage} 
+                                 paginate={paginate} 
+                              />
+                           </div> : <button type="text" onClick={(e) => handleBack(e)}>Volver</button>
+                     }
+                  </div>
+{/*                   <div>
+                     {
+                        stateRecipes.id ? <Card {...stateRecipes} /> : false
+                     }
+                  </div> */}
+                  <AllCards currentRecipes={currentRecipes} />
+               </div> : <h1>Error</h1>
+         }
       </div>
    );
 }

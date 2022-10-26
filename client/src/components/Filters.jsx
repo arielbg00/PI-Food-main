@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { filterRecipes, filterByDiets, getDiets, alphabeticalOrder } from "../redux/actions";
+import { filterRecipes, filterByDiets, getDiets, alphabeticalOrder, healthScoreOrder, changePage } from "../redux/actions";
 
 export default function Filters({ setCurrentPage, setOrder }) {
 
@@ -11,6 +11,7 @@ export default function Filters({ setCurrentPage, setOrder }) {
 
    const handleFilterRecipes = (e) => {
       dispatch(filterRecipes(e.target.value));
+      dispatch(changePage(1));
       setCurrentPage(1);
    };
 
@@ -20,13 +21,24 @@ export default function Filters({ setCurrentPage, setOrder }) {
 
    const handleFilterByDiets = (e) => {
       dispatch(filterByDiets(e.target.value));
+      dispatch(changePage(1));
       setCurrentPage(1);
    };
 
-   const handleAlphabeticalOrder = (e) => {
-      dispatch(alphabeticalOrder(e.target.value));
+   const handleHealthScore = (e) => {
+      e.preventDefault();
+      dispatch(healthScoreOrder(e.target.value));
+      dispatch(changePage(1));
       setCurrentPage(1);
-      setOrder(`Order ${e.target.value}`);
+      setOrder(e.target.name);
+   };
+
+   const handleAlphabeticalOrder = (e) => {
+      e.preventDefault();
+      dispatch(alphabeticalOrder(e.target.value));
+      dispatch(changePage(1));
+      setCurrentPage(1);
+      setOrder(e.target.name);
    };
 
    return (
@@ -39,10 +51,10 @@ export default function Filters({ setCurrentPage, setOrder }) {
                ))
             }
          </select>
-         <select onChange={(e) => handleAlphabeticalOrder(e)}>
-            <option value="asc">Ascendente</option>
-            <option value="desc">Descendente</option>
-         </select>
+         <button name="max" onClick={(e) => handleHealthScore(e)}>Max</button>
+         <button name="min" onClick={(e) => handleHealthScore(e)}>Min</button>
+         <button name="a-z" onClick={(e) => handleAlphabeticalOrder(e)}>Order A-Z</button>
+         <button name="z-a" onClick={(e) => handleAlphabeticalOrder(e)}>Order Z-A</button>
          <select onChange={(e) => handleFilterRecipes(e)}>
             <option value="All">Todos</option>
             <option value="api">Existentes</option>

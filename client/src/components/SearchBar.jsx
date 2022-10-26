@@ -13,10 +13,10 @@ export default function SearchBar() {
 
    const handleSubmit = (e) => {
       e.preventDefault();
-      // if (name) {
+      if (name) {
          dispatch(getRecipeName(name));
          setName("");
-      // }
+      }
    };
 
    return (

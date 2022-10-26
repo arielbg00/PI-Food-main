@@ -63,6 +63,18 @@ export default function rootReducer(state = initialState, action) {
             ...state,
             initialPage: action.payload
          };
+      case "HEALTH_SCORE_ORDER":
+         const healthScoreSorted = action.payload === "max" ? 
+            state.recipes.sort((a, b) => b.healthScore - a.healthScore)
+            : state.recipes.sort((a, b) => a.healthScore - b.healthScore);
+         return {
+            ...state,
+            recipes: healthScoreSorted
+         };
+      case "CREATE_RECIPE":
+         return {
+            ...state
+         };
       default:
          return {...state};
    }

@@ -71,3 +71,20 @@ export const changePage = (payload) => {
       payload
    };
 };
+
+export const healthScoreOrder = (payload) => {
+   return {
+      type: "HEALTH_SCORE_ORDER",
+      payload
+   };
+};
+
+export const createRecipe = (payload) => {
+   return async (dispatch) => {
+      const response = await axios.post("http://localhost:3001/recipes", payload);
+      dispatch({
+         type: "CREATE_RECIPE",
+         payload: response.data
+      });
+   };
+};

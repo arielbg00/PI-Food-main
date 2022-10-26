@@ -64,7 +64,7 @@ router.get("/recipes/:id", async (req, res) => {
 router.post("/recipes", async (req, res) => {
    const { name, summary, healthScore, steps, image, dishTypes, diets } = req.body;
    if (!name || !summary || !healthScore || !steps || !image || !dishTypes || !diets) {
-      res.status(400).json({ msg: "missing data" });
+      return res.status(400).json({ msg: "missing data" });
    }
    try {
       const obj = { name, summary, healthScore, steps, image, dishTypes };
