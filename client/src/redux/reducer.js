@@ -3,7 +3,8 @@ const initialState = {
    recipeDetails: {},
    copyRecipes: [],
    diets: [],
-   initialPage: 1
+   initialPage: 1,
+   filter: ""
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -38,13 +39,13 @@ export default function rootReducer(state = initialState, action) {
             diets: action.payload
          };
       case "ALPHABETICAL_ORDER":
-         const recipesSorted = action.payload === "asc" ? 
-            state.recipes.sort((a, b) => {
+         const recipesSorted = action.payload === "a-z" ? 
+            state.copyRecipes.sort((a, b) => {
                if (a.name > b.name) return 1;
                else if (b.name > a.name) return -1;
                else return 0;
             }) : 
-            state.recipes.sort((a, b) => {
+            state.copyRecipes.sort((a, b) => {
                if (a.name > b.name) return -1;
                else if (b.name > a.name) return 1;
                else return 0;
@@ -65,8 +66,8 @@ export default function rootReducer(state = initialState, action) {
          };
       case "HEALTH_SCORE_ORDER":
          const healthScoreSorted = action.payload === "max" ? 
-            state.recipes.sort((a, b) => b.healthScore - a.healthScore)
-            : state.recipes.sort((a, b) => a.healthScore - b.healthScore);
+            state.copyRecipes.sort((a, b) => b.healthScore - a.healthScore)
+            : state.copyRecipes.sort((a, b) => a.healthScore - b.healthScore);
          return {
             ...state,
             recipes: healthScoreSorted
@@ -74,6 +75,11 @@ export default function rootReducer(state = initialState, action) {
       case "CREATE_RECIPE":
          return {
             ...state
+         };
+      case "CHANGE_FILTER":
+         return {
+            ...state,
+            filter: action.payload
          };
       default:
          return {...state};

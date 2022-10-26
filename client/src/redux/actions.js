@@ -88,3 +88,10 @@ export const createRecipe = (payload) => {
       });
    };
 };
+
+export const changeFilter = (payload) => {
+   return {
+      type: "CHANGE_FILTER",
+      payload
+   };
+};

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getRecipes, changePage } from "../redux/actions";
+import { getRecipes, changePage, healthScoreOrder, filterRecipes, filterByDiets, changeFilter } from "../redux/actions";
 import { Link } from "react-router-dom";
 import AllCards from "./AllCards";
 import Filters from "./Filters";
@@ -28,20 +28,33 @@ export default function Home() {
 
    const [order, setOrder] = useState("");
 
+   const currentFilter = useSelector(state => state.filter);
+   function changeFilters(data) {
+      if (!data || data === "All") dispatch(getRecipes());
+      else if (data === "max") dispatch(healthScoreOrder(data));
+      else if (data === "api") dispatch(filterRecipes(data));
+      else if (data === "created") dispatch(filterRecipes(data));
+      else dispatch(filterByDiets(data));
+   }
+
    const handleBack = () => {
-      dispatch(getRecipes());
-      setCurrentPage(1);
+      if (!stateRecipes.length) {
+         dispatch(changeFilter(""));
+         dispatch(getRecipes());
+      } else {
+         changeFilters(currentFilter);
+         setCurrentPage(initialPage);
+      }
    };
 
    useEffect(() => {
-      // if (!stateRecipes.length) return dispatch(getRecipes());
-      dispatch(getRecipes());
+      if (!stateRecipes.length) return dispatch(getRecipes());
+      // dispatch(getRecipes());
       setCurrentPage(initialPage);
    }, [])
 
    return (
       <div>
-         <h4>Hello</h4>
          {
             stateCopyRecipes.length ? 
                <div>

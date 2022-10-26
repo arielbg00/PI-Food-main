@@ -45,6 +45,13 @@ export default function Create() {
       });
    };
 
+   const handleDelete = (el) => {
+      setInput({
+         ...input,
+         diets: input.diets.filter(diet => diet !== el)
+      });
+   };
+
    return (
       <div>
          <Link to="/home">Back</Link>
@@ -74,11 +81,18 @@ export default function Create() {
                   ))
                }
             </select>
-            <ul><li>{input.diets.join(", ")}</li></ul>
+            {/* <ul><li>{input.diets.join(", ")}</li></ul> */}
             <div>
                <button type="submit">Create Recipe</button>
             </div>
          </form>
+         <ul>
+            {
+               input.diets.map((el, i) => (
+                  <li key={i}>{el} <button onClick={() => handleDelete(el)}>X</button></li>
+               ))
+            }
+         </ul>
       </div>
    );
 }
