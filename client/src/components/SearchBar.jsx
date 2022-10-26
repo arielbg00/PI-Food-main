@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getRecipeName } from "../redux/actions";
+import { getRecipeName, changePage } from "../redux/actions";
 
-export default function SearchBar() {
+export default function SearchBar({ setCurrentPage }) {
 
    const dispatch = useDispatch();
    const [name, setName] = useState("");
@@ -15,6 +15,8 @@ export default function SearchBar() {
       e.preventDefault();
       if (name) {
          dispatch(getRecipeName(name));
+         dispatch(changePage(1));
+         //- setCurrentPage(1);
          setName("");
       }
    };

@@ -9,17 +9,19 @@ export default function Paginated({ stateRecipes, recipesInPage, paginate }) {
    }
 
    return (
-      <nav>
-         <ul>
-            {
-               pageNumbers?.map(num => (
-                  <li key={num}>
-                     {/* <button onClick={() => paginate(num)}>{num}</button> */}
-                     <a onClick={() => paginate(num)}>{num}</a>
-                  </li>
-               ))
-            }
-         </ul>
-      </nav>
+      <div>
+         <nav>
+            <ul>
+               {
+                  pageNumbers?.map(num => (
+                     <li key={num} onClick={() => paginate(num)}>{num}
+                        {/* <button onClick={() => paginate(num)}>{num}</button> */}
+                        {/* <a onClick={() => paginate(num)}>{num}</a> */}
+                     </li>
+                  ))
+               }
+            </ul>
+         </nav>
+      </div>
    );
 }
