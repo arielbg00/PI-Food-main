@@ -6,6 +6,7 @@ import AllCards from "./AllCards";
 import Filters from "./Filters";
 import SearchBar from "./SearchBar";
 import Paginated from "./Paginated";
+import s from "../styles/card.module.css";
 
 export default function Home() {
 
@@ -59,7 +60,7 @@ export default function Home() {
             stateCopyRecipes.length ? 
                <div>
                   <div>
-                     <Link to="/create">Create Recipe</Link>
+                     <Link to="/create" className={s.textW}>Create Recipe</Link>
                   </div>
                   <SearchBar /* setCurrentPage={setCurrentPage} */ />
                   <div>

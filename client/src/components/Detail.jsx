@@ -24,21 +24,21 @@ export default function Detail(props) {
             <img src={recipe.image} alt="" />
          </div>
          <div>
-            <p>HealthScore: {recipe.healthScore}</p>
-            <p>Diets:</p>
-            {recipe.diets?.map((el, i) => (<p key={i}>{el}</p>))}
-            <p>Dish Types:</p>
-            {recipe.dishTypes?.map((el, i) => (<p key={i}>{el}</p>))}
+            <h4>HealthScore: {recipe.healthScore}</h4>
+            <h4>Diets:</h4>
+            {recipe.diets?.map((el, i) => (<h4 key={i}>{el}</h4>))}
+            <h4>Dish Types:</h4>
+            {recipe.dishTypes?.map((el, i) => (<h4 key={i}>{el}</h4>))}
          </div>
          <div>
-            <p>Summary</p>
-            <p>{recipe.summary?.replace(/<[^>]+>/g, "")}</p>
+            <h4>Summary</h4>
+            <h4>{recipe.summary?.replace(/<[^>]+>/g, "")}</h4>
          </div>
          <div>
-            <p>Steps:</p>
+            <h4>Steps:</h4>
             {
                recipe.steps?.map((el, i) => (
-                  <p key={i}>Step {i + 1}: {el}</p>
+                  <h4 key={i}>Step {i + 1}: {el}</h4>
                ))
             }
          </div>

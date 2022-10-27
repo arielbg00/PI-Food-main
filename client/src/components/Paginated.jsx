@@ -1,4 +1,5 @@
 import React from "react";
+import s from "../styles/paginated.module.css";
 
 export default function Paginated({ initialPage, stateRecipes, recipesInPage, paginate }) {
    
@@ -9,22 +10,22 @@ export default function Paginated({ initialPage, stateRecipes, recipesInPage, pa
    }
 
    return (
-      <div>
+      <div className={s.container}>
          <nav>
-            <ul>
+            <ul className={s.list}>
                {
-                  initialPage > 1 && <li onClick={() => paginate(initialPage - 1)}>&lt;</li>
+                  initialPage > 1 && <li className={s.eachList} onClick={() => paginate(initialPage - 1)}>&lt;</li>
                }
                {
                   pageNumbers?.map(num => (
-                     <li key={num} onClick={() => paginate(num)}>{num}
+                     <li key={num} className={s.eachList} onClick={() => paginate(num)}>{num}
                         {/* <button onClick={() => paginate(num)}>{num}</button> */}
                         {/* <a onClick={() => paginate(num)}>{num}</a> */}
                      </li>
                   ))
                }
                {
-                  initialPage < pageNumbers.length && <li onClick={() => paginate(initialPage + 1)}>&lt;</li>
+                  initialPage < pageNumbers.length && <li className={s.eachList} onClick={() => paginate(initialPage + 1)}>&lt;</li>
                }
             </ul>
          </nav>

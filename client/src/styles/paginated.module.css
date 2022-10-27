@@ -1,0 +1,24 @@
+.container {
+    width: fit-content;
+    padding: 8px 30px;
+    margin:0 auto;
+}
+
+.list {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: 0 auto;
+    gap: 10px;
+}
+
+.eachList {
+    list-style-type: none;
+    background-color: rgb(199, 193, 193);
+    width: 20px;
+    height: 20px;
+    padding: 10px;
+    color:rgb(66, 64, 64);
+    cursor: pointer;
+    border-radius: 50px;
+}
