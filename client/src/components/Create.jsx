@@ -3,12 +3,24 @@ import { useSelector, useDispatch } from "react-redux";
 import { getDiets, createRecipe } from "../redux/actions";
 import { Link, useHistory } from "react-router-dom";
 
+const validating = (input) => {
+   let error = {};
+   if (!input.name) error.name = "A name is required";
+   else if (!input.summary) error.summary = "Add a recipe summary";
+   else if (input.healthScore < 1 || input.healthScore > 100) error.healthScore = "Add a number between 1-100";
+   else if (!input.steps.length) error.steps = "Add the recipe step by step with at least 10 characters";
+   else if (!input.diets.length) error.diets = "Add one or more than one diet";
+   
+   return error;
+};
+
 export default function Create() {
 
    const diets = useSelector(state => state.diets);
    const dispatch = useDispatch();
    const history = useHistory();
    
+   const [error, setError] = useState({});
    const [input, setInput] = useState({
       name: "",
       summary: "",
@@ -36,6 +48,10 @@ export default function Create() {
          ...input,
          [e.target.name]: e.target.value
       });
+      setError(validating({
+         ...input,
+         [e.target.name]: e.target.value
+      }));
    };
 
    const handleDiets = (e) => {
@@ -43,6 +59,10 @@ export default function Create() {
          ...input,
          diets: [...input.diets, e.target.value]
       });
+      setError(validating({
+         ...input,
+         diets: [...input.diets, e.target.value]
+      }));
    };
 
    const handleDelete = (el) => {
@@ -50,6 +70,17 @@ export default function Create() {
          ...input,
          diets: input.diets.filter(diet => diet !== el)
       });
+   };
+
+   const handleSteps = (e) => {
+      setInput({
+         ...input,
+         steps: [e.target.value]
+      });
+      setError(validating({
+         ...input,
+         steps: [e.target.value]
+      }));
    };
 
    return (
@@ -60,14 +91,22 @@ export default function Create() {
             <div>
                <label>Name: </label>
                <input type="text" name="name" value={input.name} onChange={handleInputChange} />
+               {error.name && (<p>{error.name}</p>)}
             </div>
             <div>
                <label>Summary: </label>
                <input type="text" name="summary" value={input.summary} onChange={handleInputChange} />
+               {error.summary && (<p>{error.summary}</p>)}
             </div>
             <div>
                <label>HealthScore: </label>
                <input type="number" name="healthScore" value={input.healthScore} onChange={handleInputChange} />
+               {error.healthScore && (<p>{error.healthScore}</p>)}
+            </div>
+            <div>
+               <label>Steps: </label>
+               <input type="text" value={input.steps} onChange={handleSteps} />
+               {error.steps && (<p>{error.steps}</p>)}
             </div>
             <div>
                <label>Image: </label>
@@ -81,9 +120,14 @@ export default function Create() {
                   ))
                }
             </select>
+            {error.diets && (<p>{error.diets}</p>)}
             {/* <ul><li>{input.diets.join(", ")}</li></ul> */}
             <div>
-               <button type="submit">Create Recipe</button>
+               {
+                  error.name || error.summary || error.healthScore || error.steps || error.diets ? 
+                  <button type="submit" disabled>Create Recipe</button>
+                  : <button type="submit">Create Recipe</button>
+               }
             </div>
          </form>
          <ul>

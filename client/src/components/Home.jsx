@@ -68,6 +68,7 @@ export default function Home() {
                            <div>
                               <Filters /* setCurrentPage={setCurrentPage} */ setOrder={setOrder} />
                               <Paginated 
+                                 initialPage={initialPage} 
                                  stateRecipes={stateRecipes.length} 
                                  recipesInPage={recipesInPage} 
                                  paginate={paginate} 
