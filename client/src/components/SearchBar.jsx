@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getRecipeName, changePage } from "../redux/actions";
 
-export default function SearchBar({ setCurrentPage }) {
+export default function SearchBar() {
 
    const dispatch = useDispatch();
    const [name, setName] = useState("");
@@ -16,7 +16,6 @@ export default function SearchBar({ setCurrentPage }) {
       if (name) {
          dispatch(getRecipeName(name));
          dispatch(changePage(1));
-         //- setCurrentPage(1);
          setName("");
       }
    };
@@ -24,8 +23,8 @@ export default function SearchBar({ setCurrentPage }) {
    return (
       <div>
          <form onSubmit={(e) => handleSubmit(e)}>
-            <input type="text" placeholder="Buscar..." value={name} onChange={(e) => handleInputChange(e)} />
-            <button type="submit">Buscar</button>
+            <input type="text" placeholder="Search..." value={name} onChange={(e) => handleInputChange(e)} />
+            <button type="submit">Search</button>
          </form>
       </div>
    );

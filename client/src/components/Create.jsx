@@ -20,6 +20,14 @@ export default function Create() {
    const dispatch = useDispatch();
    const history = useHistory();
    
+   useEffect(() => {
+      dispatch(getDiets());
+      console.log("I am inside");
+      return () => {
+         console.log("I am outside");
+      };  // eslint-disable-next-line
+   }, [])
+
    const [error, setError] = useState({});
    const [input, setInput] = useState({
       name: "",
@@ -31,18 +39,6 @@ export default function Create() {
       diets: []
    });
 
-   useEffect(() => {
-      dispatch(getDiets());
-   }, [])
-
-   const handleSubmit = (e) => {
-      e.preventDefault();
-      dispatch(createRecipe(input));
-      alert("Recipe Created!");
-      // setInput({});
-      history.push("/home");
-   };
-
    const handleInputChange = (e) => {
       setInput({
          ...input,
@@ -51,6 +47,17 @@ export default function Create() {
       setError(validating({
          ...input,
          [e.target.name]: e.target.value
+      }));
+   };
+
+   const handleSteps = (e) => {
+      setInput({
+         ...input,
+         steps: [e.target.value]
+      });
+      setError(validating({
+         ...input,
+         steps: [e.target.value]
       }));
    };
 
@@ -65,6 +72,14 @@ export default function Create() {
       }));
    };
 
+   const handleSubmit = (e) => {
+      e.preventDefault();
+      dispatch(createRecipe(input));
+      alert("Recipe Created!");
+      // setInput({});
+      history.push("/home");
+   };
+
    const handleDelete = (el) => {
       setInput({
          ...input,
@@ -72,20 +87,9 @@ export default function Create() {
       });
    };
 
-   const handleSteps = (e) => {
-      setInput({
-         ...input,
-         steps: [e.target.value]
-      });
-      setError(validating({
-         ...input,
-         steps: [e.target.value]
-      }));
-   };
-
    return (
       <div>
-         <Link to="/home">Back</Link>
+         <Link to="/home">Go Back</Link>
          <h1>Create Recipe</h1>
          <form onSubmit={handleSubmit}>
             <div>
@@ -133,7 +137,7 @@ export default function Create() {
          <ul>
             {
                input.diets.map((el, i) => (
-                  <li key={i}>{el} <button onClick={() => handleDelete(el)}>X</button></li>
+                  <li key={i}>{el} <button onClick={() => handleDelete(el)}>x</button></li>
                ))
             }
          </ul>

@@ -1,45 +1,38 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { filterRecipes, filterByDiets, getDiets, alphabeticalOrder, healthScoreOrder, changePage, changeFilter } from "../redux/actions";
+import { getDiets, filterByDiets, healthScoreOrder, alphabeticalOrder, filterRecipes, changePage } from "../redux/actions";
 
-export default function Filters({ setCurrentPage, setOrder }) {
+export default function Filters({ setOrder }) {
 
    const stateDiets = useSelector(state => state.diets);
    const dispatch = useDispatch();
 
    const diets = stateDiets.map(obj => obj.name);
 
-   const handleFilterRecipes = (e) => {
-      dispatch(filterRecipes(e.target.value));
-      // dispatch(changeFilter(e.target.value));
-      dispatch(changePage(1));
-      //- setCurrentPage(1);
-   };
-
    useEffect(() => {
-      dispatch(getDiets());
+      dispatch(getDiets());  // eslint-disable-next-line
    }, [])
 
    const handleFilterByDiets = (e) => {
       dispatch(filterByDiets(e.target.value));
-      // dispatch(changeFilter(e.target.value));
       dispatch(changePage(1));
-      //- setCurrentPage(1);
    };
 
    const handleHealthScore = (e) => {
       dispatch(healthScoreOrder(e.target.name));
-      // dispatch(changeFilter(e.target.name));
       dispatch(changePage(1));
-      //- setCurrentPage(1);
       setOrder(e.target.name);
    };
 
    const handleAlphabeticalOrder = (e) => {
       dispatch(alphabeticalOrder(e.target.name));
       dispatch(changePage(1));
-      //- setCurrentPage(1);
       setOrder(e.target.name);
+   };
+
+   const handleFilterRecipes = (e) => {
+      dispatch(filterRecipes(e.target.value));
+      dispatch(changePage(1));
    };
 
    return (

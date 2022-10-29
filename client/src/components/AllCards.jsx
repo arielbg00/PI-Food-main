@@ -10,7 +10,7 @@ export default function AllCards({ currentRecipes }) {
             {
                currentRecipes.length ? currentRecipes.map((rec, i) => (
                   <Link key={i} to={`/details/${rec.id}`} className={s.text}>
-                     <Card name={rec.name} image={rec.image} diets={rec.diets} summary={rec.summary}/>
+                     <Card name={rec.name} image={rec.image} diets={rec.diets} />
                   </Link>
                )) : <h2>There is nothing</h2>
             }

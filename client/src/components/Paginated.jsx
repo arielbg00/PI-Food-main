@@ -18,14 +18,11 @@ export default function Paginated({ initialPage, stateRecipes, recipesInPage, pa
                }
                {
                   pageNumbers?.map(num => (
-                     <li key={num} className={s.eachList} onClick={() => paginate(num)}>{num}
-                        {/* <button onClick={() => paginate(num)}>{num}</button> */}
-                        {/* <a onClick={() => paginate(num)}>{num}</a> */}
-                     </li>
+                     <li key={num} className={s.eachList} onClick={() => paginate(num)}>{num}</li>
                   ))
                }
                {
-                  initialPage < pageNumbers.length && <li className={s.eachList} onClick={() => paginate(initialPage + 1)}>&lt;</li>
+                  initialPage < pageNumbers.length && <li className={s.eachList} onClick={() => paginate(initialPage + 1)}>&gt;</li>
                }
             </ul>
          </nav>

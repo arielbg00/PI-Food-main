@@ -3,8 +3,7 @@ const initialState = {
    recipeDetails: {},
    copyRecipes: [],
    diets: [],
-   initialPage: 1,
-   filter: ""
+   initialPage: 1
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -22,13 +21,15 @@ export default function rootReducer(state = initialState, action) {
          };
       case "FILTER_RECIPES":
          const allRecipes = state.copyRecipes;
-         const filtered = action.payload === "created" ? allRecipes.filter(el => el.created) : allRecipes.filter(el => !el.created);
+         const filtered = action.payload === "created" ? allRecipes.filter(el => el.created) 
+            : allRecipes.filter(el => !el.created);
          return {
             ...state,
             recipes: action.payload === "All" ? allRecipes : filtered
          };
       case "FILTER_BY_DIETS":
-         const filterByDiet = action.payload === "all" ? state.copyRecipes : state.copyRecipes.filter(el => el.diets.includes(action.payload));
+         const filterByDiet = action.payload === "all" ? state.copyRecipes 
+            : state.copyRecipes.filter(el => el.diets.includes(action.payload));
          return {
             ...state,
             recipes: filterByDiet
@@ -44,8 +45,8 @@ export default function rootReducer(state = initialState, action) {
                if (a.name > b.name) return 1;
                else if (b.name > a.name) return -1;
                else return 0;
-            }) : 
-            state.copyRecipes.sort((a, b) => {
+            }) 
+            : state.copyRecipes.sort((a, b) => {
                if (a.name > b.name) return -1;
                else if (b.name > a.name) return 1;
                else return 0;
@@ -76,10 +77,10 @@ export default function rootReducer(state = initialState, action) {
          return {
             ...state
          };
-      case "CHANGE_FILTER":
+      case "RESET":
          return {
             ...state,
-            filter: action.payload
+            recipeDetails: {}
          };
       default:
          return {...state};

@@ -10,6 +10,9 @@ export default function Detail(props) {
 
    useEffect(() => {
       dispatch(getRecipeId(props.match.params.id));
+      return () => {
+         dispatch({ type: "RESET" });
+      };  // eslint-disable-next-line
    }, [])
 
    return (
