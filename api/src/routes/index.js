@@ -72,10 +72,7 @@ router.post("/recipes", async (req, res) => {
 
       const dietsDb = await Diet.findAll({ where: { name: diets } });
       await newRecipe.addDiets(dietsDb);
-
-      const a = await Recipe.findAll({ include: { model: Diet } });
-      console.log(a);
-      res.json(a);
+      res.send("Recipe Created");
    } catch (error) {
       console.log(error);
    }
@@ -83,7 +80,8 @@ router.post("/recipes", async (req, res) => {
 
 router.get("/diets", async (req, res) => {
    try {
-      const diets = await Diet.findAll();
+      const dietsDb = await Diet.findAll();
+      const diets = dietsDb.map(obj => obj.name);
       res.json(diets);
    } catch (error) {
       console.log(error);

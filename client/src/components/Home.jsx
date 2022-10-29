@@ -12,7 +12,7 @@ export default function Home() {
 
    const stateRecipes = useSelector(state => state.recipes);
    const stateCopyRecipes = useSelector(state => state.copyRecipes);
-   const initialPage = useSelector((state) => state.initialPage);
+   const initialPage = useSelector(state => state.initialPage);
    const dispatch = useDispatch();
    // eslint-disable-next-line
    const [recipesInPage, setRecipesInPage] = useState(9);

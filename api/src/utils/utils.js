@@ -1,6 +1,6 @@
-// const axios = require("axios");
+const axios = require("axios");
 const { Recipe, Diet } = require("../db");
-const api = require("../../api.json");
+// const api = require("../../api.json");
 
 const saveDietsInDb = async () => {
 	const diets = [{name: "gluten free"}, {name: "dairy free"}, {name: "lacto ovo vegetarian"}, {name: "vegan"}, {name: "paleolithic"}, {name: "primal"}, {name: "whole 30"}, {name: "pescatarian"}, {name: "ketogenic"}, {name: "fodmap friendly"}];
@@ -8,9 +8,10 @@ const saveDietsInDb = async () => {
 };
 
 const getAllApi = async () => {
-    // const getApi = await axios.get("https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=300&apiKey=bee23743640145c3bcf6664e2c031ec4");
-	const getApi = api;
-	return getApi.results.map(obj => {
+    const getApi = await axios.get("https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&number=100&apiKey=bee23743640145c3bcf6664e2c031ec4");
+	return getApi.data.results.map(obj => {
+	// const getApi = api;
+	// return getApi.results.map(obj => {
 		return {
 			id: obj.id,
 			name: obj.title,

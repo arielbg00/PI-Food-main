@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function Detail(props) {
 
-   const recipe = useSelector((state) => state.recipeDetails);
+   const recipe = useSelector(state => state.recipeDetails);
    const dispatch = useDispatch();
 
    useEffect(() => {

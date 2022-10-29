@@ -4,13 +4,15 @@ import { getDiets, filterByDiets, healthScoreOrder, alphabeticalOrder, filterRec
 
 export default function Filters({ setOrder }) {
 
-   const stateDiets = useSelector(state => state.diets);
+   const diets = useSelector(state => state.diets);
    const dispatch = useDispatch();
 
-   const diets = stateDiets.map(obj => obj.name);
-
    useEffect(() => {
-      dispatch(getDiets());  // eslint-disable-next-line
+      dispatch(getDiets());
+      console.log("I'm inside");
+      return () => {
+         console.log("I'm outside");
+      };  // eslint-disable-next-line
    }, [])
 
    const handleFilterByDiets = (e) => {
