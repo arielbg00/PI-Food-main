@@ -1,7 +1,52 @@
 .container {
+    margin-top: 5px;
+    /* border: solid blue; */
+    display: flex;
+    justify-content: center;
+}
+
+.uList {
+    margin: 0px;
+    /* border: solid red; */
+    padding: 0px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.eachList {
+    list-style-type: none;
+    margin: 3px;
+    padding: 6px;
+    width: 20px;
+    height: 20px;
+    background-color: rgb(199, 193, 193);
+    color: rgb(66, 64, 64);
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.eachList:hover {
+    background-color: rgb(66, 64, 64);
+    color: white;
+}
+
+.current {
+    list-style-type: none;
+    margin: 3px;
+    padding: 6px;
+    width: 20px;
+    height: 20px;
+    background-color: rgb(66, 64, 64);
+    color: white;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+/* .container {
     width: fit-content;
     padding: 8px 30px;
     margin:0 auto;
+    border: solid;
 }
 
 .list {
@@ -21,4 +66,4 @@
     color:rgb(66, 64, 64);
     cursor: pointer;
     border-radius: 50px;
-}
+} */

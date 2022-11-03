@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { changePage } from "../redux/actions";
-import s from "../styles/paginated.module.css";
+import s from "../styles/Paginated.module.css";
 
 export default function Paginated({ initialPage, stateRecipes, recipesInPage, paginate }) {
 
@@ -32,13 +32,13 @@ export default function Paginated({ initialPage, stateRecipes, recipesInPage, pa
    return (
       <div className={s.container}>
          <nav>
-            <ul className={s.list}>
+            <ul className={s.uList}>
                {
                   initialPage > 1 && <li className={s.eachList} onClick={() => paginate(initialPage - 1)}>&lt;</li>
                }
                {
                   pageNumbers?.map(num => (
-                     <li key={num} className={s.eachList} onClick={() => paginate(num)}>{num}</li>
+                     <li key={num} className={initialPage === num ? s.current : s.eachList} onClick={() => paginate(num)}>{num}</li>
                   ))
                }
                {

@@ -119,8 +119,8 @@ export default function Create() {
             <select defaultValue="default" onChange={handleDiets}>
                <option value="default" disabled>Select Diets</option>
                {
-                  diets.length && diets.map((obj, i) => (
-                     <option key={i} value={obj.name}>{obj.name}</option>
+                  diets.length && diets.map((el, i) => (
+                     <option key={i} value={el}>{el}</option>
                   ))
                }
             </select>
