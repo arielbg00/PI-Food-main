@@ -1,5 +1,5 @@
 import React from "react";
-import s from "../styles/card.module.css";
+import s from "../styles/Card.module.css";
 
 export default function Card({ name, image, diets }) {
    return (

@@ -1,4 +1,4 @@
-.ccontainer {
+.container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -8,11 +8,14 @@
 .witdh {
     width: 420px;
     height: 420px;
-    margin: 5px;
     border: 3px solid orangered;
     border-radius: 20px;
     background-color: white;
     opacity: 95%;
+}
+
+.marginCard {
+    margin: 5px;
 }
 
 .text {

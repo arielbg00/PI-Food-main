@@ -6,7 +6,7 @@ import AllCards from "./AllCards";
 import Paginated from "./Paginated";
 import Filters from "./Filters";
 import SearchBar from "./SearchBar";
-import s from "../styles/card.module.css";
+import s from "../styles/Card.module.css";
 
 export default function Home() {
 
